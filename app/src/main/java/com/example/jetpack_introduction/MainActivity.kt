@@ -21,13 +21,22 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,6 +45,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -60,8 +70,10 @@ class MainActivity : ComponentActivity() {
 //            }
 //            Layout()
 //            Lazylayout()
-//              Boxlayout()
-            Cardlayout()
+//            Boxlayout()
+//            Cardlayout()
+              TextfieldLayout()
+
         }
     }
 }
@@ -109,31 +121,47 @@ class MainActivity : ComponentActivity() {
 //    }
 //}
 
+//@Composable
+//fun Cardlayout() {
+//    Card(
+//        modifier = Modifier
+//            .padding(8.dp)
+//            .fillMaxWidth().height(800.dp),
+//            elevation = CardDefaults.cardElevation(100.dp)
+//    ) {
+//        Column(modifier = Modifier.fillMaxSize().background(Color.Green)) {
+//            Image(
+//                painter = painterResource(id = R.drawable.logo), null,
+//                modifier = Modifier.padding(8.dp).size(500.dp)
+//                    .clip(RoundedCornerShape(CornerSize(1000.dp)))
+//            )
+//            Text(
+//                text = "Logo", fontSize = 50.sp,
+//                modifier = Modifier
+//                    .padding(10.dp)
+//                    .align(Alignment.CenterHorizontally)
+//            )
+//        }
+//
+//    }
+//
+//
+//}
+
 @Composable
-fun Cardlayout() {
-    Card(
-        modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth().height(800.dp),
-            elevation = CardDefaults.cardElevation(100.dp)
-    ) {
-        Column(modifier = Modifier.fillMaxSize().background(Color.Green)) {
-            Image(
-                painter = painterResource(id = R.drawable.logo), null,
-                modifier = Modifier.padding(8.dp).size(500.dp)
-                    .clip(RoundedCornerShape(CornerSize(1000.dp)))
-            )
-            Text(
-                text = "Logo", fontSize = 50.sp,
-                modifier = Modifier
-                    .padding(10.dp)
-                    .align(Alignment.CenterHorizontally)
-            )
-        }
-
+fun TextfieldLayout(){
+    var valueOfField by remember {
+        mutableStateOf(TextFieldValue(""))
     }
-
-
+    Box(contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxSize()){
+        TextField(value =valueOfField, onValueChange = {
+            valueOfField= it
+        }, label = {Text(text = "Name")},
+            placeholder = { Text(text = "Enter your name")},
+            leadingIcon = { Icon(Icons.Default.Person, "") },
+            trailingIcon = { Icon(Icons.Default.Info, "") })
+    }
 }
 
 
